@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="VideoDirectorGPT: Consistent Multi-Scene Video Generation via LLM-Guided Planning">
+  <meta name="keywords" content="video,video generation,gpt,video director,video gpt">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VideoDirectorGPT (2023)</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">VideoDirectorGPT: Consistent Multi-Scene<br>Video Generation via LLM-Guided Planning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://hl-hanlin.github.io/">Han Lin</a>
+            </span>, &nbsp;  
+              <span class="author-block">
+                <a href="https://aszala.com/">Abhay Zala</a>
+              </span>, &nbsp;  
+              <span class="author-block">
+                <a href="https://j-min.io">Jaemin Cho</a>
+              </span>, &nbsp;
+              <span class="author-block">
+                <a href="https://www.cs.unc.edu/~mbansal/">Mohit Bansal</a>
+              </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">UNC Chapel Hill</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2309.15091"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/HL-hanlin/VideoDirectorGPT"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <!-- <div class="container is-max-desktop"> -->
+  <div class="container">
+    <div class="hero-body" style="display: flex; justify-content: center;">
+      <!-- <h2 class="title is-3" style="text-align: center;">Summary Video</h2> -->
+      <video id="teaser" autoplay controls muted loop width="80%">
+        <source src="./static/images/videodirectorgpt_teaser.mp4" type="video/mp4">
+      </video>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+
+          <p>
+            Although recent text-to-video (T2V) generation methods have seen significant advancements,
+            the majority of these works focus on producing short video clips of a single event with a single background (i.e., single-scene videos).
+            Meanwhile, recent large language models (LLMs) have demonstrated their capability in generating layouts and programs to control downstream
+            visual modules such as image generation models. This raises an important question: <em>can we leverage the knowledge embedded in these LLMs
+            for temporally consistent long video generation?</em>
+          </p>
+          <p>
+            In this paper, we propose <b>VideoDirectorGPT</b>, a novel framework for consistent multi-scene video generation that uses the knowledge
+            of LLMs for video content planning and grounded video generation. Specifically, given a single text prompt, we first ask our video planner LLM (GPT-4)
+            to expand it into a 'video plan', which involves generating the scene descriptions, the entities with their respective layouts, the background
+            for each scene, and consistency groupings of the entities and backgrounds. Next, guided by this output from the video planner, our
+            video generator, named Layout2Vid, has explicit control over spatial layouts and can maintain temporal consistency of entities/backgrounds
+            across multiple scenes, while being only trained with image-level annotations. Our experiments demonstrate that our proposed VideoDirectorGPT
+            framework substantially improves layout and movement control in both single- and multi-scene video generation and can generate multi-scene
+            videos with visual consistency across scenes, while achieving competitive performance with SOTAs in open-domain single-scene text-to-video generation.
+            We also demonstrate that our framework can dynamically control the strength for layout guidance and can also generate videos with user-provided images.
+          </p>
+          <p>
+            We hope our framework can inspire future work on better integrating the planning ability 
+            of LLMs into consistent long video generation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <h2 class="title is-3" style="text-align: center;">Summary</h2>
+    <div class="container">
+      <center>
+        <img src="./static/images/figure1.png" alt="Teaser" width="80%">
+      </center>
+      <div class="content has-text-justified">
+          Figure 1: <b>Overall illustration of our VideoDirectorGPT framework.</b> In the first stage, we employ
+          <b>GPT-4 as a video planner</b> to craft a video plan, which provides a multi-component script for videos with
+          multiple scenes. In the second stage, we utilize <b>Layout2Vid</b>, a grounded video generation module, to render
+          multi-scene videos with layout and consistency control based on the video plan generated in the first stage.
+      </div>
+      
+      
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Summary</h2>
+
+        <img src="./static/images/figure2.png" alt="Teaser" width="80%">
+        <div class="content has-text-justified">
+          Figure 1: <b>Illustration of our two-stage framework for long, multi-scene video generation from text.</b> In the first stage,
+          we employ the LLM as a video planner to craft a video plan, which provides an overarching plot for videos with
+          multiple scenes, guiding the downstream video generation process. The video plan consists of scene-level text
+          descriptions, a list of the entities and background involved in each scene, frame-by-frame entity layouts (bounding boxes),
+          and consistency groupings for entities and backgrounds. In the second stage, we utilize <b>Layout2Vid</b>, a grounded video
+          generation module, to render videos based on the video plan generated in the first stage. This module uses the same image
+          and text embeddings to represent identical entities and backgrounds from video plan, and allows for spatial control over
+          entity layouts through the Guided 2D Attention in the spatial attention block.
+        </div>
+
+        <br><br>
+
+        <h3 class="title is-4">Video Planning: Generating Video Plans with LLMs</h3>
+        <div class="content has-text-justified">
+          <p>
+            As illustrated in the blue part of Figure 1, GPT-4 (OpenAI, 2023) acts as a
+            planner and provides a detailed video plan from a single text prompt to guide the downstream video generation.
+            Our video plan consists of four components: (1) multi-scene descriptions: a sentence describing each scene,
+            (2) entities: names along with their 2D bounding boxes, (3) background: text description of the location of each scene,
+            and (4) consistency groupings: scene indices for each entity/background indicating where they should remain visually consistent. 
+          </p>
+          <p>
+            In the first step, we use GPT-4 to expand a single text prompt into a multi-scene video plan.
+            Each scene comes with a text description, a list of entities (names and their 2D bounding boxes),
+            and a background. For this step, we construct the input prompt using the task instruction, one in-context example,
+            and the input text from which we aim to generate a video plan. Subsequently, we group entities and backgrounds
+            that appear across different scenes using an exact match. For instance, if the 'chef' appears in scenes 1-4 and
+            'oven' only appears in scene 1, we form the entity consistency groupings as {chef:[1,2,3,4], oven:[1]}.
+            In the subsequent video generation stage, we use the shared representations for the same entity/background
+            consistency groups to ensure they maintain temporally consistent appearances.
+          </p>
+          <p>
+            In the second step, we expand the detailed layouts for each scene using GPT-4.
+            We generate a list of bounding boxes for the entities in each frame based on the list of entities and the scene description.
+            For each scene, we produce layouts for 8 frames, then linearly interpolate the bounding boxes to gather bounding box information
+            for denser frames (e.g., 16 frames). We utilize the [x0 , y0 , x1 , y1 ] format for bounding boxes, where each coordinate is
+            normalized to fall within the range [0,1]. For in-context examples, we present 0.05 as the minimum unit for the bounding box,
+            equivalent to a 20-bin quantization over the [0,1] range. 
+          </p>
+        </div>
+
+
+        <br><br>
+        <h3 class="title is-4">Video Generation: Generating Videos from Video Plans with Layout2Vid</h3>
+        
+        <img src="./static/images/figure3.png" alt="Teaser" width="80%">
+        <div class="content has-text-justified">
+          <b>Figure 2: Overview of (a) spatio-temporal blocks within the diffusion UNet of our Layout2Vid and
+          (b) Guided 2D Attention present in the spatial attention module.</b> (a) The spatio-temporal block comprises
+          four modules: spatial convolution, temporal convolution, spatial attention, and temporal attention.
+          In (b) Guided 2D Attention, we modulate the visual representation with layout tokens and text tokens.
+          For efficient training, only the parameters of the Guided 2D Attention (indicated by
+          the fire symbol, constituting 13% of total parameters) are trained using image-level annotations.
+          The remaining modules in the spatio-temporal block are kept frozen.
+        </div>
+        <br><br>
+
+        <div class="content has-text-justified">
+          <p>
+            Our Layout2Vid module enables layout-guided video generation with explicit spatial control over a list of entities.
+            These entities are represented by their bounding boxes, as well as visual and text content. As depicted in Fig. 2,
+            we build upon the 2D attention mechanism within the spatial attention module of the spatio-temporal blocks in the
+            Diffusion UNet to create the Guided 2D Attention. The Guided 2D Attention takes two conditional inputs to modulate
+            the visual latent representation: (a) layout tokens, conditioned with gated self-attention, and (b) text tokens
+            that describe the current scene, conditioned with cross-attention. Note that we train the Layout2Vid module in
+            a parameter and data-efficient manner by only updating the Guided 2D Attention parameters (while other parameters remain frozen)
+            with image-level annotations (no video-level annotations). We elaborate on the details in the subsequent paragraphs.
+          </p>
+          <p>
+            To preserve the identity of entities appearing across different frames and scenes,
+            we use shared representations for the entities within the same consistency group.
+            While previous layout-guided text-to-image generation models commonly only used the
+            CLIP text embedding for layout control, we use the CLIP image embedding in addition
+            to the CLIP text embedding for entity grounding.
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Generated Examples</h2>
+        <div class="content has-text-justified">
+          <p>
+            We conduct experiments on both single-scene and multi-scene video generation. 
+            For single-scene video generation, we evaluate layout control via VPEval Skill-based prompts,
+            assess object dynamics through ActionBench-Direction prompts adapted from
+            ActionBench-SSV2, and examine open-domain video generation using the MSR-VTT dataset. 
+            For multi-scene video generation, we experiment with two types of input prompts:
+            (1) a list of sentences describing events &#8212; ActivityNet Captions
+            and Coref-SV prompts based on Pororo-SV, and (2) a single sentence from which models
+            generate multi-scene videos &#8212; HiREST.
+          </p>
+          <p>
+            In addition, we show generated videos from text-only using Karlo and image+text with user-provided images.
+          </p>
+        </div>
+        <div class="content is-centered has-text-centered">
+          
+          <h3>Coref-SV</h3>
+          <div class="content example">
+            <div class="example-prompt" style="text-align: left; width: 80%;margin:auto">
+              Scene 1: <b style="color:red;">mouse</b> is holding a book and makes a happy face.<br>
+              Scene 2: <b style="color:red;">he</b> looks happy and talks.<br>
+              Scene 3: <b style="color:red;">he</b> is pulling petals off the flower.<br>
+              Scene 4: <b style="color:red;">he</b> is ripping a petal from the flower.<br>
+              Scene 5: <b style="color:red;">he</b> is holding a flower by <b style="color:red;">his</b> right paw.<br>
+              Scene 6: one paw pulls the last petal off the flower.<br>
+              Scene 7: <b style="color:red;">he</b> is smiling and talking while holding a flower on <b style="color:red;">his</b> right paw.
+            </div>
+            <br>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/coref_modelscope_1.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/coref_ours_1.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+          <p>Video generation examples on a Coref-SV prompt. Our video plan's
+            object layouts (overlayed) can guide the Layout2Vid module to generate the same mouse
+            and flower across scenes consistently, whereas ModelScopeT2V loses track of the mouse
+            right after the first scene, generating a human hand and a dog instead of a mouse, and
+            the flower changes color.</p>
+          </div>
+          <div class="content example">
+            <div class="example-prompt" style="text-align: left; width: 80%;margin:auto">
+              Scene 1: it's snowing outside.<br>
+              Scene 2: <b style="color:red;">dog</b> is singing and dancing.<br>
+              Scene 3: <b style="color:red;">its</b> friends are encouraging <b style="color:red;">it</b> to do something.<br>
+              Scene 4: <b style="color:red;">its</b> friends are applauding at <b style="color:red;">it</b>.<br>
+              Scene 5: <b style="color:red;">it</b> is bowing to the audience after the performance.
+            </div>
+            <br>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/coref_modelscope_2.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/coref_ours_2.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+          <p>Video generation examples on a Coref-SV prompt.
+            Our video plan's object layouts (overlayed) can guide the Layout2Vid module to
+            generate the same brown dog and maintain snow across scenes consistently,
+            whereas ModelScopeT2V generates different dogs in different scenes and loses
+            the snow after the first scene.</p>
+          </div>
+          <hr>
+          <h3>HiREST</h3>
+          <div class="content example">
+            <p class="example-prompt">make caraway cakes</p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/hirest_modelscope_1.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/hirest_ours_1.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+            <p>Comparison of generated videos on a HiREST prompt.
+              Our model is able to generate a detailed video plan that properly expands
+              the original text prompt to show the process, has accurate object bounding
+              box locations (overlayed), and maintains the consistency of the person across
+              the scenes. ModelScopeT2V only generates the final caraway cake and that cake
+              is not consistent between scenes.</p>
+          </div>
+          <div class="content example">
+            <p class="example-prompt">make peach melba</p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/hirest_modelscope_2.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/hirest_ours_2.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+          <p>Comparison of generated videos on a HiREST prompt.
+            Our VideoDirectorGPT generates a detailed video plan that properly expands the original text prompt,
+            ensures accurate object bounding box locations (overlayed), and maintains the consistency of the
+            person across the scenes. ModelScopeT2V only generates the final dessert and it is not consistent between scenes.</p>
+          </div>
+          <hr>
+          <h3>ActionBench-Direction prompts</h3>
+          <div class="content example">
+            <p class="example-prompt">pushing <b style="color:red;">stuffed animal</b> from <b>left to right</b></p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/action_modelscope_1.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/action_ours_1.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+          </div>
+          <div class="content example">
+            <p class="example-prompt">pushing <b style="color:red;">pear</b> from <b>right to left</b></p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/action_modelscope_2.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/action_ours_2.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+          <p>Video generation examples on ActionBench-Direction prompts.
+            Our video plan's object layouts (overlayed) can guide the Layout2Vid module to place
+            and move the 'stuffed animal' and 'pear' in their correct respective directions,
+            whereas the objects in the ModelScopeT2V videos stay in the same location or move
+            in random directions.</p>
+          </div>
+          <hr>
+          <h3>VPEval Skill-based prompts</h3>
+          <div class="content example">
+            <p class="example-prompt">a <b style="color:green;">pizza</b> is to the <b>left</b> of an <b style="color:red;">elephant</b></p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/vpeval_modelscope_1.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/vpeval_ours_1.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+          </div>
+          <div class="content example">
+            <p class="example-prompt"><b>four</b> frisbees</p>
+            <div class="example-gifs">
+                <div>
+                  <p><b>ModelScopeT2V</b></p>
+                  <img src="./static/images/vpeval_modelscope_2.gif" alt="Teaser" width="80%">
+                </div>
+                <div>
+                  <p><b>VideoDirectorGPT (Ours)</b></p>
+                  <img src="./static/images/vpeval_ours_2.gif" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br>
+            <p>Video generation examples on VPEval Skill-based prompts for spatial and count skills.
+              Our video plan, with object layouts overlaid, successfully guides the Layout2Vid module to place objects
+              in the correct spatial relations and to depict the correct number of objects,
+              whereas ModelScopeT2V fails to generate 'pizza' in the first example and
+              overproduces the number of frisbees in the second example.</p>
+          </div>
+          <hr>
+          <h3>User-Provided Input Image &rarr; Video</h3>
+          <div class="content example">
+            <div class="example-prompt" style="text-align: left; width: 85%;margin:auto">
+              Scene 1: a &lt;S&gt; then gets up from a plush beige bed.<br>
+              Scene 2: a &lt;S&gt; goes to the cream-colored kitchen and eats a can of gourmet cat snack.<br>
+              Scene 3: a &lt;S&gt; sits next to a large floor-to-ceiling window.
+            </div>
+            <br>
+            <div class="example-gifs">
+                <div style="display: block;position: relative;">
+                  <p><b>Input</b></p>
+                  <div style="font-size: 1.3em;position: relative;top: 50%;transform: translateY(-50%);">&lt;S&gt; = "white cat"</div>
+                </div>
+                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+                <div>
+                  <p><b>Generated Gif</b></p>
+                  <img src="./static/images/exemplar/white_cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br><br>
+            <!-- position: relative;top: 50%;transform: translateY(-50%); -->
+            <div class="example-gifs">
+                <div style="display: block;position: relative;text-align: center;">
+                  <p><b>Input</b></p>
+                  <div style="font-size: 1.3em;">&lt;S&gt; = "cat"</div>
+                  <div>+</div>
+                  <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                    <img class="example-input" src="./static/images/exemplar/cat1.png">
+                    <img class="example-input" src="./static/images/exemplar/cat2.png">
+                    <img class="example-input" src="./static/images/exemplar/cat3.png">
+                    <img class="example-input" src="./static/images/exemplar/cat4.png">
+                  </div>
+                </div>
+                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+                <div>
+                  <p><b>Generated Gif</b></p>
+                  <img src="./static/images/exemplar/cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
+                </div>
+            </div>
+            <br><br>
+            <div class="example-gifs">
+              <div style="display: block;position: relative;text-align: center;">
+                <p><b>Input</b></p>
+                <div style="font-size: 1.3em;">&lt;S&gt; = "cat"</div>
+                <div>+</div>
+                <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                  <img class="example-input" src="./static/images/exemplar/siamese cat1.png">
+                  <img class="example-input" src="./static/images/exemplar/siamese cat2.png">
+                  <img class="example-input" src="./static/images/exemplar/siamese cat3.png">
+                  <img class="example-input"src="./static/images/exemplar/siamese cat4.png">
+                </div>
+              </div>
+              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+              <div>
+                <p><b>Generated Gif</b></p>
+                <img src="./static/images/exemplar/siamese_cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
+              </div>
+          </div>
+          <br><br>
+          <div class="example-gifs">
+            <div style="display: block;position: relative;text-align: center;">
+              <p><b>Input</b></p>
+              <div style="font-size: 1.3em;">&lt;S&gt; = "teddy bear"</div>
+              <div>+</div>
+              <div style="display: flex;flex-wrap: wrap;justify-content: center;">
+                <img class="example-input" src="./static/images/exemplar/teddy bear1.png">
+                <img class="example-input" src="./static/images/exemplar/teddy bear2.png">
+                <img class="example-input" src="./static/images/exemplar/teddy bear3.png">
+                <img class="example-input" src="./static/images/exemplar/teddy bear4.png">
+              </div>
+            </div>
+            <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+            <div>
+              <p><b>Generated Gif</b></p>
+              <img src="./static/images/exemplar/teddy_bear.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
+            </div>
+        </div>
+            <br>
+            <p>Video generation examples with custom entities.
+              Users can flexibly provide either text-only (1st row) or image+text (2nd to 4th rows)
+              descriptions to place custom entities when generating videos with VideoDirectorGPT.
+              For both text and image+text based entity grounding examples, the identities of the
+              provided entities are well preserved across multiple scenes</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{Lin2023VideoDirectorGPT,
+        author = {Han Lin and Abhay Zala and Jaemin Cho and Mohit Bansal},
+        title = {VideoDirectorGPT: Consistent Multi-Scene Video Generation via LLM-Guided Planning},
+        year = {2023},
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          The webpage was adapted from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

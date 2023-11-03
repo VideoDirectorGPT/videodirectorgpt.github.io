@@ -146,41 +146,9 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <!-- <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div> -->
-    <!--/ Paper video. -->
   </div>
 </section>
 
-
-<!-- <section class="hero is-small">
-  <div class="hero-body">
-    <h2 class="title is-3" style="text-align: center;">Summary</h2>
-    <div class="container">
-      <center>
-        <img src="./static/images/figure1.png" alt="Teaser" width="80%">
-      </center>
-      <div class="content has-text-justified">
-          Figure 1: <b>Overall illustration of our VideoDirectorGPT framework.</b> In the first stage, we employ
-          <b>GPT-4 as a video planner</b> to craft a video plan, which provides a multi-component script for videos with
-          multiple scenes. In the second stage, we utilize <b>Layout2Vid</b>, a grounded video generation module, to render
-          multi-scene videos with layout and consistency control based on the video plan generated in the first stage.
-      </div>
-      
-      
-    </div>
-  </div>
-</section> -->
 
 
 <section class="section">
@@ -257,7 +225,7 @@
             the visual latent representation: (a) layout tokens, conditioned with gated self-attention, and (b) text tokens
             that describe the current scene, conditioned with cross-attention. Note that we train the Layout2Vid module in
             a parameter and data-efficient manner by only updating the Guided 2D Attention parameters (while other parameters remain frozen)
-            with image-level annotations (no video-level annotations). We elaborate on the details in the subsequent paragraphs.
+            with image-level annotations (no video-level annotations).
           </p>
           <p>
             To preserve the identity of entities appearing across different frames and scenes,
@@ -374,7 +342,7 @@
               is not consistent between scenes.</p>
           </div>
           <div class="content example">
-            <p class="example-prompt">make peach melba</p>
+            <p class="example-prompt">make strawberry surprise</p>
             <div class="example-gifs">
                 <div>
                   <p><b>ModelScopeT2V</b></p>
@@ -463,17 +431,17 @@
           <h3>User-Provided Input Image &rarr; Video</h3>
           <div class="content example">
             <div class="example-prompt" style="text-align: left; width: 85%;margin:auto">
-              Scene 1: a &lt;S&gt; then gets up from a plush beige bed.<br>
-              Scene 2: a &lt;S&gt; goes to the cream-colored kitchen and eats a can of gourmet cat snack.<br>
-              Scene 3: a &lt;S&gt; sits next to a large floor-to-ceiling window.
+              Scene 1: a <b style="color:red;">&lt;S&gt;</b> then gets up from a plush beige bed.<br>
+              Scene 2: a <b style="color:red;">&lt;S&gt;</b> goes to the cream-colored kitchen and eats a can of gourmet cat snack.<br>
+              Scene 3: a <b style="color:red;">&lt;S&gt;</b> sits next to a large floor-to-ceiling window.
             </div>
             <br>
             <div class="example-gifs">
                 <div style="display: block;position: relative;">
                   <p><b>Input</b></p>
-                  <div style="font-size: 1.3em;position: relative;top: 50%;transform: translateY(-50%);">&lt;S&gt; = "white cat"</div>
+                  <div style="font-size: 1.3em;position: relative;top: 50%;transform: translateY(-50%);"><b style="color:red;">&lt;S&gt;</b> = "white cat"</div>
                 </div>
-                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 60%;transform: translateY(-50%);">
                 <div>
                   <p><b>Generated Gif</b></p>
                   <img src="./static/images/exemplar/white_cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
@@ -484,7 +452,7 @@
             <div class="example-gifs">
                 <div style="display: block;position: relative;text-align: center;">
                   <p><b>Input</b></p>
-                  <div style="font-size: 1.3em;">&lt;S&gt; = "cat"</div>
+                  <div style="font-size: 1.3em;"><b style="color:red;">&lt;S&gt;</b> = "cat"</div>
                   <div>+</div>
                   <div style="display: flex;flex-wrap: wrap;justify-content: center;">
                     <img class="example-input" src="./static/images/exemplar/cat1.png">
@@ -493,7 +461,7 @@
                     <img class="example-input" src="./static/images/exemplar/cat4.png">
                   </div>
                 </div>
-                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+                <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 60%;transform: translateY(-50%);">
                 <div>
                   <p><b>Generated Gif</b></p>
                   <img src="./static/images/exemplar/cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
@@ -503,7 +471,7 @@
             <div class="example-gifs">
               <div style="display: block;position: relative;text-align: center;">
                 <p><b>Input</b></p>
-                <div style="font-size: 1.3em;">&lt;S&gt; = "cat"</div>
+                <div style="font-size: 1.3em;"><b style="color:red;">&lt;S&gt;</b> = "cat"</div>
                 <div>+</div>
                 <div style="display: flex;flex-wrap: wrap;justify-content: center;">
                   <img class="example-input" src="./static/images/exemplar/siamese cat1.png">
@@ -512,7 +480,7 @@
                   <img class="example-input"src="./static/images/exemplar/siamese cat4.png">
                 </div>
               </div>
-              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 60%;transform: translateY(-50%);">
               <div>
                 <p><b>Generated Gif</b></p>
                 <img src="./static/images/exemplar/siamese_cat.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
@@ -522,7 +490,7 @@
           <div class="example-gifs">
             <div style="display: block;position: relative;text-align: center;">
               <p><b>Input</b></p>
-              <div style="font-size: 1.3em;">&lt;S&gt; = "teddy bear"</div>
+              <div style="font-size: 1.3em;"><b style="color:red;">&lt;S&gt;</b> = "teddy bear"</div>
               <div>+</div>
               <div style="display: flex;flex-wrap: wrap;justify-content: center;">
                 <img class="example-input" src="./static/images/exemplar/teddy bear1.png">
@@ -531,7 +499,7 @@
                 <img class="example-input" src="./static/images/exemplar/teddy bear4.png">
               </div>
             </div>
-            <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+            <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 60%;transform: translateY(-50%);">
             <div>
               <p><b>Generated Gif</b></p>
               <img src="./static/images/exemplar/teddy_bear.gif" style="position: relative;top: 50%;transform: translateY(-50%);" alt="Teaser" width="80%">
@@ -576,15 +544,6 @@
 
 <footer class="footer">
   <div class="container">
-    <!-- <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div> -->
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">

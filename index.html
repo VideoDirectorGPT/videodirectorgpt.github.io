@@ -288,7 +288,7 @@
             </div>
             <br>
           <p>Video generation examples on a Coref-SV prompt. Our video plan's
-            object layouts (overlayed) can guide the Layout2Vid module to generate the same mouse
+            object layouts (overlaid) can guide the Layout2Vid module to generate the same mouse
             and flower across scenes consistently, whereas ModelScopeT2V loses track of the mouse
             right after the first scene, generating a human hand and a dog instead of a mouse, and
             the flower changes color.</p>
@@ -314,7 +314,7 @@
             </div>
             <br>
           <p>Video generation examples on a Coref-SV prompt.
-            Our video plan's object layouts (overlayed) can guide the Layout2Vid module to
+            Our video plan's object layouts (overlaid) can guide the Layout2Vid module to
             generate the same brown dog and maintain snow across scenes consistently,
             whereas ModelScopeT2V generates different dogs in different scenes and loses
             the snow after the first scene.</p>
@@ -337,7 +337,7 @@
             <p>Comparison of generated videos on a HiREST prompt.
               Our model is able to generate a detailed video plan that properly expands
               the original text prompt to show the process, has accurate object bounding
-              box locations (overlayed), and maintains the consistency of the person across
+              box locations (overlaid), and maintains the consistency of the person across
               the scenes. ModelScopeT2V only generates the final caraway cake and that cake
               is not consistent between scenes.</p>
           </div>
@@ -356,8 +356,8 @@
             <br>
           <p>Comparison of generated videos on a HiREST prompt.
             Our VideoDirectorGPT generates a detailed video plan that properly expands the original text prompt,
-            ensures accurate object bounding box locations (overlayed), and maintains the consistency of the
-            person across the scenes. ModelScopeT2V only generates the final dessert and it is not consistent between scenes.</p>
+            ensures accurate object bounding box locations (overlaid), and maintains the consistency of the
+            person across the scenes. ModelScopeT2V only generates strawberries.</p>
           </div>
           <hr>
           <h3>ActionBench-Direction prompts</h3>
@@ -388,7 +388,7 @@
             </div>
             <br>
           <p>Video generation examples on ActionBench-Direction prompts.
-            Our video plan's object layouts (overlayed) can guide the Layout2Vid module to place
+            Our video plan's object layouts (overlaid) can guide the Layout2Vid module to place
             and move the 'stuffed animal' and 'pear' in their correct respective directions,
             whereas the objects in the ModelScopeT2V videos stay in the same location or move
             in random directions.</p>
@@ -510,7 +510,57 @@
               Users can flexibly provide either text-only (1st row) or image+text (2nd to 4th rows)
               descriptions to place custom entities when generating videos with VideoDirectorGPT.
               For both text and image+text based entity grounding examples, the identities of the
-              provided entities are well preserved across multiple scenes</p>
+              provided entities are well preserved across multiple scenes.</p>
+          </div>
+          
+          <hr>
+          <h3>Human-in-the-Loop Editing</h3>
+          <div class="content example">
+            <br><br>
+            <div class="example-gifs">
+              <div>
+                <p><b>Original Gif</b></p>
+                <img src="./static/images/Original.gif" style="position: relative;top: 49%;transform: translateY(-50%);" alt="Teaser" width="80%">
+              </div>
+              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+              <div style="display: block;position: relative;text-align: center;">
+                <p><b>Human Edit</b></p>
+                <div style="font-size: 1.3em;">Make the horse smaller</div>
+                <img src="./static/images/Edit1.gif" alt="Teaser" width="80%">
+              </div>
+            </div>
+            <br><br>
+            <div class="example-gifs">
+              <div>
+                <p><b>Original Gif</b></p>
+                <img src="./static/images/Original.gif" style="position: relative;top: 49%;transform: translateY(-50%);" alt="Teaser" width="80%">
+              </div>
+              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+              <div style="display: block;position: relative;text-align: center;">
+                <p><b>Human Edit</b></p>
+                <div style="font-size: 1.3em;">Add "grassland" background</div>
+                <img src="./static/images/Edit2.gif" alt="Teaser" width="80%">
+              </div>
+            </div>
+            <br><br>
+            <div class="example-gifs">
+              <div>
+                <p><b>Original Gif</b></p>
+                <img src="./static/images/Original.gif" style="position: relative;top: 49%;transform: translateY(-50%);" alt="Teaser" width="80%">
+              </div>
+              <img src="./static/images/arrow_icon.jpg" style="height:50px;position: absolute;top: 50%;transform: translateY(-50%);">
+              <div style="display: block;position: relative;text-align: center;">
+                <p><b>Human Edit</b></p>
+                <div style="font-size: 1.3em;">Add "night street" background</div>
+                <img src="./static/images/Edit3.gif" alt="Teaser" width="80%">
+              </div>
+            </div>
+            <br>
+            <p>Video generation examples for human-in-the-loop editing.
+              Users can modify the video plan (e.g., add/delete objects, change the background and entity layouts, etc.)
+              to generate customized video contents.
+              Given the same text prompt "A horse running", we provide visualizations with a smaller horse and
+              different backgrounds (i.e., "night street" and "grassland").</p>
           </div>
         </div>
 
